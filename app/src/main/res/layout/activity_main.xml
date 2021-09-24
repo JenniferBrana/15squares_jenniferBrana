@@ -13,6 +13,13 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-90dp">
 
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.12"
+            android:text="RESET BOARD" />
+
         <com.example.a15squares_jenniferbrana.BoardSurfaceView
             android:id="@+id/boardSurfaceView"
             android:layout_width="match_parent"
@@ -25,7 +32,7 @@
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="50sp"
-            android:layout_weight="1"
+            android:layout_weight="0.25"
             android:max="10"
             android:progress="4" />
     </LinearLayout>

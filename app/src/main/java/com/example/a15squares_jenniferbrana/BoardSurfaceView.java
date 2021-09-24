@@ -13,7 +13,7 @@ import android.widget.SeekBar;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class BoardSurfaceView extends SurfaceView implements View.OnTouchListener, SeekBar.OnSeekBarChangeListener {
+public class BoardSurfaceView extends SurfaceView implements View.OnTouchListener, SeekBar.OnSeekBarChangeListener, View.OnClickListener {
     //COMMENT
     public static final float boardSize = 1000; //width of board
     public static final float top = 200;
@@ -192,5 +192,13 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    //when the reset button is clicked, it creates a new board and invalidates the drawing'
+    //so a new board is drawn
+    @Override
+    public void onClick(View view) {
+        createBoard();
+        invalidate();
     }
 }

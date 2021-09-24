@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,5 +23,9 @@ public class MainActivity extends AppCompatActivity {
         //COMMENT
         SeekBar sizeSeekBar = (SeekBar) findViewById(R.id.SizeSeekBar);
         sizeSeekBar.setOnSeekBarChangeListener(boardView);
+
+        //setting up reset button
+        Button resetButton = (Button) findViewById(R.id.resetButton);
+        resetButton.setOnClickListener(boardView);
     }
 }
