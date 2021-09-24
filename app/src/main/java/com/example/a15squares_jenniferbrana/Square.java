@@ -25,7 +25,7 @@ public class Square {
 
         textColor = new Paint();
         textColor.setColor(Color.BLACK);
-        textColor.setTextSize(100.0f);
+        textColor.setTextSize(75.0f);
     }
 
     //Copy constructor for square

@@ -8,11 +8,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class BoardSurfaceView extends SurfaceView implements View.OnTouchListener {
+public class BoardSurfaceView extends SurfaceView implements View.OnTouchListener, SeekBar.OnSeekBarChangeListener {
     //COMMENT
     public static final float boardSize = 1000; //width of board
     public static final float top = 200;
@@ -35,6 +36,15 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
         color.setColor(Color.BLACK);
 
         numSquares = 4; //COMMENT
+
+        theSquares = new ArrayList<Square>();
+
+        createBoard();
+
+    }
+
+    //COMMENT
+    public void createBoard(){
         sqSize = boardSize / numSquares; //COMMENT
 
         theSquares = new ArrayList<Square>();
@@ -42,7 +52,7 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
         //generate arraylist with all the numbers
         ArrayList<String> numLabels = new ArrayList<String>();
         numLabels.add(""); //add empty string to list
-        for(int n = 1; n < 16; n++){
+        for(int n = 1; n < numSquares*numSquares; n++){
             numLabels.add(String.valueOf(n));
         }
 
@@ -58,9 +68,6 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
                 theSquares.add(newSquare);
             }
         }
-
-
-
     }
 
     //COMMENT
@@ -164,5 +171,26 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
 
 
         return false;
+    }
+
+    //COMMENT
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int size, boolean b) {
+        //COMMENT
+        if(size >= 3){
+            numSquares = size;
+            createBoard();
+            invalidate();
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }

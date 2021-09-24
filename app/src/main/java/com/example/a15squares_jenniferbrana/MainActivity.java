@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,5 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
         //set OnTouchListener
         boardView.setOnTouchListener(boardView);
+
+        //COMMENT
+        SeekBar sizeSeekBar = (SeekBar) findViewById(R.id.SizeSeekBar);
+        sizeSeekBar.setOnSeekBarChangeListener(boardView);
     }
 }
