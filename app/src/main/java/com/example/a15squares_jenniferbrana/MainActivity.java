@@ -14,5 +14,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BoardSurfaceView boardView = (BoardSurfaceView) findViewById(R.id.boardSurfaceView);
+
+        //set OnTouchListener
+        boardView.setOnTouchListener(boardView);
     }
 }

@@ -28,6 +28,16 @@ public class Square {
         textColor.setTextSize(100.0f);
     }
 
+    //Copy constructor for square
+    public Square(Square sq){
+        this.left = sq.left;
+        this.top = sq.top;
+        this.size = sq.size;
+        this.num = sq.num;
+        this.color = new Paint(sq.color);
+        this.textColor = new Paint(sq.textColor);
+    }
+
     //COMMENT
     public void draw(Canvas canvas){
         canvas.drawRect(left+10, top+10, left+size-10, top+size-10, color);
@@ -41,5 +51,13 @@ public class Square {
 
         //draw text on the square
         canvas.drawText(num, (left+size/2 - lText/2), (top+size/2 + height/2 - 10), textColor);
+    }
+
+    public String getNum(){
+        return num;
+    }
+
+    public void setNum(String n){
+        num = n;
     }
 }

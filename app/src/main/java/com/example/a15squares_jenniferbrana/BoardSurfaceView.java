@@ -14,7 +14,7 @@ import java.util.Collections;
 
 public class BoardSurfaceView extends SurfaceView implements View.OnTouchListener {
     //COMMENT
-    public static final float boardSize = 1000;
+    public static final float boardSize = 1000; //width of board
     public static final float top = 200;
     public static final float left = 100;
 
@@ -78,11 +78,57 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
     //COMMENT
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        //COMMENT
+        int first; //COMMENT
+
         if(motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN){
             float x = motionEvent.getX();
             float y = motionEvent.getY();
+
+            first = getTouchedSquare(x, y);
+
+            //COMMENT
+            boolean swapped = swapSquares(first);
+            if(swapped){
+                invalidate();
+            }
         }
+
+        return false;
+    }
+
+    //COMMENT
+    public int getTouchedSquare(float x, float y){
+        int xCoor = (int)((x-left) / sqSize);
+        int yCoor = (int)((y-top) / sqSize);
+
+        //COMMENT
+        if(xCoor >= numSquares | yCoor >= numSquares){
+            return -1; //return null if it is out of bounds
+        }
+
+        return (xCoor+(yCoor*numSquares)); //COMMENT
+    }
+
+    //COMMENT
+    public boolean swapSquares(int sq){
+        if(sq - numSquares >= 0){
+            if(theSquares.get(sq-((int)numSquares)).getNum().equals("")){
+                Square tempSquare = new Square(theSquares.get(sq));
+                theSquares.get(sq).setNum(theSquares.get(sq-((int)numSquares)).getNum());
+                theSquares.get(sq-((int)numSquares)).setNum(tempSquare.getNum());
+                return true;
+            }
+        }
+
+        if(sq+numSquares <= 15){
+            if(theSquares.get(sq+((int)numSquares)).getNum().equals("")){
+                Square tempSquare = new Square(theSquares.get(sq));
+                theSquares.get(sq).setNum(theSquares.get(sq+((int)numSquares)).getNum());
+                theSquares.get(sq+((int)numSquares)).setNum(tempSquare.getNum());
+                return true;
+            }
+        }
+
 
         return false;
     }
