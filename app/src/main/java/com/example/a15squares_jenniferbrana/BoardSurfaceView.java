@@ -24,12 +24,16 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
     private int numSquares;
     private float sqSize;
     private ArrayList<Square> theSquares;
+    private boolean isCorrect;
 
     public BoardSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         //COMMENT
         setWillNotDraw(false);
+
+        //init isCorrect to false
+        isCorrect = false;
 
         //COMMENT
         color = new Paint();
@@ -68,6 +72,8 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
                 theSquares.add(newSquare);
             }
         }
+
+        checkCorrect();
     }
 
     //COMMENT
@@ -99,6 +105,7 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
             //COMMENT
             boolean swapped = swapSquares(first);
             if(swapped){
+                checkCorrect();
                 invalidate();
             }
         }
@@ -177,10 +184,13 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
     @Override
     public void onProgressChanged(SeekBar seekBar, int size, boolean b) {
         //COMMENT
-        if(size >= 3){
+        if(size >= 2){
             numSquares = size;
             createBoard();
             invalidate();
+        }
+        else{
+            numSquares = 2;
         }
     }
 
@@ -200,5 +210,29 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
     public void onClick(View view) {
         createBoard();
         invalidate();
+    }
+
+    //checkCorrect: method checks if the board is correct.
+    //sets isCorrect field to true or false
+    //COMMENT
+    public void checkCorrect(){
+        //check if the value in the square is the same as it's index
+        for(int i = 0; i < numSquares*numSquares-1; i++){
+            if(!theSquares.get(i).getNum().equals(String.valueOf(i+1))){
+                isCorrect = false;
+                color.setColor(Color.BLACK); //sets the color to black for false
+                return;
+            }
+        }
+
+        //check if the last square is empty
+        if(!theSquares.get(numSquares*numSquares-1).getNum().equals("")){
+            isCorrect = false;
+            color.setColor(Color.BLACK); //sets the color to black for false
+            return;
+        }
+
+        isCorrect = true; //if no false squares are found, set to correct
+        color.setColor(Color.GRAY); //set the color of the background to gray if it is correct
     }
 }
