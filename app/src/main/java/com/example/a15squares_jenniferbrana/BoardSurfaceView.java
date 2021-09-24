@@ -85,6 +85,9 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
             float y = motionEvent.getY();
 
             first = getTouchedSquare(x, y);
+            if(first == -1){
+                return false;
+            }
 
             //COMMENT
             boolean swapped = swapSquares(first);
@@ -111,21 +114,51 @@ public class BoardSurfaceView extends SurfaceView implements View.OnTouchListene
 
     //COMMENT
     public boolean swapSquares(int sq){
+        int max = numSquares * numSquares - 1;
+
         if(sq - numSquares >= 0){
-            if(theSquares.get(sq-((int)numSquares)).getNum().equals("")){
-                Square tempSquare = new Square(theSquares.get(sq));
-                theSquares.get(sq).setNum(theSquares.get(sq-((int)numSquares)).getNum());
-                theSquares.get(sq-((int)numSquares)).setNum(tempSquare.getNum());
-                return true;
+            if(!((sq-numSquares)%numSquares == (numSquares-1) & (sq)%numSquares==0)) {
+                if (theSquares.get(sq - ((int) numSquares)).getNum().equals("")) {
+                    Square tempSquare = new Square(theSquares.get(sq));
+                    theSquares.get(sq).setNum(theSquares.get(sq - ((int) numSquares)).getNum());
+                    theSquares.get(sq - ((int) numSquares)).setNum(tempSquare.getNum());
+                    return true;
+                }
             }
         }
 
-        if(sq+numSquares <= 15){
-            if(theSquares.get(sq+((int)numSquares)).getNum().equals("")){
-                Square tempSquare = new Square(theSquares.get(sq));
-                theSquares.get(sq).setNum(theSquares.get(sq+((int)numSquares)).getNum());
-                theSquares.get(sq+((int)numSquares)).setNum(tempSquare.getNum());
-                return true;
+        if(sq+numSquares <= max){
+            if(!((sq+numSquares)%numSquares == (numSquares-1) & (sq)%numSquares==0)){
+                if(theSquares.get(sq+((int)numSquares)).getNum().equals("")){
+                    Square tempSquare = new Square(theSquares.get(sq));
+                    theSquares.get(sq).setNum(theSquares.get(sq+((int)numSquares)).getNum());
+                    theSquares.get(sq+((int)numSquares)).setNum(tempSquare.getNum());
+                    return true;
+                }
+            }
+
+
+        }
+
+        if(sq-1 >= 0){
+            if(!((sq-1)%numSquares == (numSquares-1) & (sq)%numSquares==0)) {
+                if (theSquares.get(sq - 1).getNum().equals("")) {
+                    Square tempSquare = new Square(theSquares.get(sq));
+                    theSquares.get(sq).setNum(theSquares.get(sq - 1).getNum());
+                    theSquares.get(sq - 1).setNum(tempSquare.getNum());
+                    return true;
+                }
+            }
+        }
+
+        if(sq+1 <= max){
+            if(!((sq+1)%numSquares == 0 & (sq)%numSquares==(numSquares-1))) {
+                if (theSquares.get(sq + 1).getNum().equals("")) {
+                    Square tempSquare = new Square(theSquares.get(sq));
+                    theSquares.get(sq).setNum(theSquares.get(sq + 1).getNum());
+                    theSquares.get(sq + 1).setNum(tempSquare.getNum());
+                    return true;
+                }
             }
         }
 
